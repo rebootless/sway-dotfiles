@@ -234,10 +234,14 @@ echo "      Zafiro-Icons-Light"
 echo "==================================================================="
 
 echo ""
-echo "A reboot (or at least a fresh login) is needed for all system"
-echo "services, user groups, and shell/theme changes to fully apply."
-echo "This script does not reboot the machine for you — do it yourself"
+echo "A reboot (or at least a new login session) is recommended for all"
+echo "system services, user groups, and shell/theme changes to fully apply."
+echo "This script will not reboot your system automatically."
 
 echo ""
-echo "whenever it's convenient:"
+echo "When convenient:"
 echo "  sudo reboot"
+
+echo ""
+echo "Or, without rebooting, start Sway manually:"
+echo "  sway"
