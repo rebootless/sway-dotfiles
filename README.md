@@ -22,10 +22,11 @@ A single `install.sh` that takes a fresh Debian 13 machine to a fully configured
 
 ### ✅ Requirements
 
-- **Debian 13 (trixie)**, nothing else — `install.sh` checks `/etc/os-release` and refuses to run on anything else.
-- A **regular user with sudo rights**. Don't run the script as root — it calls `sudo` itself wherever needed.
-- A machine installed with only the **"Standard system utilities"** task selected in the Debian installer (`tasksel`) — i.e. a minimal base system, no desktop environment, no display manager, nothing pre-configured. The package scripts in `scripts/` assume that baseline; running on top of an existing DE or a different package set is untested and may conflict.
-- An internet connection — apt, Nerd Fonts, Zafiro icons, and bash-qol all fetch from the network during install.
+* **Debian 13 (trixie)**, nothing else — `install.sh` checks `/etc/os-release` and refuses to run on anything else.
+* A **regular user with sudo rights**. Don't run the script as root — it calls `sudo` itself wherever needed.
+* **`sudo` and `git` must already be installed**, as they are required to clone the repository and execute the installation process.
+* A machine installed with only the **"Standard system utilities"** task selected in the Debian installer (`tasksel`) — i.e. a minimal base system, no desktop environment, no display manager, nothing pre-configured. The package scripts in `scripts/` assume that baseline; running on top of an existing DE or a different package set is untested and may conflict.
+* An internet connection — apt, Nerd Fonts, Zafiro icons, and bash-qol all fetch from the network during install.
 
 ### 🗒️ What's Included
 
