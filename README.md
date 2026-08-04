@@ -30,27 +30,28 @@ A single `install.sh` that takes a fresh Debian 13 machine to a fully configured
 
 ### 🗒️ What's Included
 
-| Role | Program |
-| --- | :--: |
+| Role               | Program |
+| ------------------ | -------------------------------------- |
 | **Window Manager** | [Sway](https://github.com/swaywm/sway) |
-| **Terminal** | [kitty](https://github.com/kovidgoyal/kitty) |
-| **Bar** | [Waybar](https://github.com/Alexays/Waybar) |
-| **Launcher** | [wofi](https://hg.sr.ht/~scoopta/wofi) |
-| **Notifications** | [SwayNotificationCenter](https://github.com/ErikReider/SwayNotificationCenter) |
-| **File manager** | [ranger](https://github.com/ranger/ranger) (TUI), [Thunar](https://gitlab.xfce.org/xfce/thunar) (GUI) |
-| **Text editor** | [Kate](https://apps.kde.org/kate/) |
-| **Browser** | Firefox ESR |
-| **Network** | NetworkManager + nm-applet |
-| **Bluetooth** | blueman |
-| **Audio** | PipeWire / WirePlumber |
-| **Screenshot** | flameshot, grim + slurp |
-| **Clipboard** | CopyQ, wl-clipboard |
-| **Music / media** | cmus, VLC, cava |
-| **Shell** | Bash |
-| **GTK theme** | [Nordic](https://github.com/EliverLara/Nordic) |
-| **Icon theme** | [Zafiro-icons](https://github.com/zayronxio/Zafiro-icons) |
-| **Qt/GTK bridge** | qt5ct, qt6ct, nwg-look, Breeze style |
-| **Fonts** | [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts): JetBrainsMono, FiraCode, Hack, Meslo, SourceCodePro |
+| **Terminal**       | [kitty](https://github.com/kovidgoyal/kitty) |
+| **Bar**            | [Waybar](https://github.com/Alexays/Waybar) |
+| **Launcher**       | [wofi](https://hg.sr.ht/~scoopta/wofi) |
+| **Notifications**  | [SwayNotificationCenter](https://github.com/ErikReider/SwayNotificationCenter) |
+| **File manager**   | [ranger](https://github.com/ranger/ranger) (TUI), [Thunar](https://gitlab.xfce.org/xfce/thunar) (GUI) |
+| **Text editor**    | [Kate](https://apps.kde.org/kate/) |
+| **Browser**        | Firefox ESR |
+| **Network**        | NetworkManager + nm-applet |
+| **Firewall**       | firewalld, firewall-config |
+| **Bluetooth**      | blueman |
+| **Audio**          | PipeWire / WirePlumber |
+| **Screenshot**     | flameshot, grim + slurp |
+| **Clipboard**      | CopyQ, wl-clipboard |
+| **Music / media**  | cmus, VLC, cava |
+| **Shell**          | Bash |
+| **GTK theme**      | [Nordic](https://github.com/EliverLara/Nordic) |
+| **Icon theme**     | [Zafiro-icons](https://github.com/zayronxio/Zafiro-icons) |
+| **Qt/GTK bridge**  | qt5ct, qt6ct, nwg-look, Breeze style |
+| **Fonts**          | [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts): JetBrainsMono, FiraCode, Hack, Meslo, SourceCodePro |
 
 > The exact package list lives in `scripts/install-pkgs-*.sh` (one file per category — core, wayland-core, theming, audio, network, notify, storage, system-helpers, graphics, apps). `kitty`, `kate`, `swaylock`, and `swayidle` are installed directly by `install.sh` instead — see the comment block at the top of `install.sh` for why.
 
