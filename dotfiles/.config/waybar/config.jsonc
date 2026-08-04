@@ -1,0 +1,187 @@
+{
+  "layer": "bottom",
+  "position": "top",
+  "height": 34,
+  "spacing": 2,
+  "margin-top": 8,
+  "margin-left": 8,
+  "margin-right": 8,
+  "margin-bottom": 0,
+  "exclusive": true,
+  "gtk-layer-shell": true,
+  "passthrough": false,
+  "fixed-center": true,
+  "modules-left": [
+    "sway/workspaces",
+    "custom/sep",
+    "sway/window"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "temperature",
+    "cpu",
+    "custom/memory",
+    "custom/sep",
+    "wireplumber",
+    "custom/mic",
+    "custom/sep",
+    "sway/language",
+    "custom/sep",
+    "clock",
+    "clock#time",
+    "custom/sep",
+    "tray",
+    "custom/sep",
+    "custom/notification",
+    "custom/sep",
+    "custom/logout",
+    "custom/reboot",
+    "custom/power"
+  ],
+  // Workspaces shown as dots:
+  // filled circle = focused (real class from sway/workspaces; "active" does not exist),
+  // outline = default, urgent uses its own class
+  "sway/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "default": "○",
+      "focused": "●",
+      "urgent": "●"
+    },
+    "all-outputs": true,
+    "disable-scroll": false,
+    "active-only": false,
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": [],
+      "6": [],
+      "7": [],
+      "8": [],
+      "9": [],
+      "10": []
+    }
+  },
+  // Current window title
+  "sway/window": {
+    "format": "{title}"
+  },
+  // Keyboard layout indicator (us / ru configured in Sway)
+  "sway/language": {
+    "format": "󰌌 {short}",
+    "tooltip": false,
+    "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
+  },
+  // System tray
+  "tray": {
+    "show-passive-items": true,
+    "spacing": 10
+  },
+  // Date: MM/DD/YYYY with calendar popup in tooltip
+  "clock": {
+    "format": "󰸗 {:%m/%d/%Y}",
+    "calendar": {
+      "format": {
+        "days": "<span weight='normal'>{}</span>",
+        "months": "<span color='#d8dee9'><b>{}</b></span>",
+        "today": "<span color='#bf616a' weight='700'>{}</span>",
+        "weekdays": "<span color='#ebcb8b'><b>{}</b></span>",
+        "weeks": "<span color='#a3be8c'><b>W{}</b></span>"
+      },
+      "mode": "month",
+      "mode-mon-col": 1,
+      "on-scroll": 1
+    },
+    "tooltip-format": "<span color='#d8dee9' font='Lexend 16'><tt><small>{calendar}</small></tt></span>"
+  },
+  // Time: 12-hour format with AM/PM
+  "clock#time": {
+    "tooltip": false,
+    "format": "󰥔 {:%I:%M %p}"
+  },
+  // Temperature
+  "temperature": {
+    "format": " {temperatureC}°C",
+    "tooltip": false
+  },
+  // CPU usage
+  "cpu": {
+    "format": "󰻠 {usage}%",
+    "tooltip": true,
+    "interval": 1
+  },
+  // Memory usage – matches htop/free formula
+  "custom/memory": {
+    "interval": 3,
+    "return-type": "json",
+    "exec": "total=$(awk '/^MemTotal:/{print $2}' /proc/meminfo); free=$(awk '/^MemFree:/{print $2}' /proc/meminfo); buffers=$(awk '/^Buffers:/{print $2}' /proc/meminfo); cached=$(awk '/^Cached:/{print $2}' /proc/meminfo); sreclaim=$(awk '/^SReclaimable:/{print $2}' /proc/meminfo); shmem=$(awk '/^Shmem:/{print $2}' /proc/meminfo); used=$((total - free - buffers - cached - sreclaim + shmem)); pct=$((used * 100 / total)); used_gib=$(awk -v u=\"$used\" 'BEGIN{printf \"%.1f\", u/1024/1024}'); total_gib=$(awk -v t=\"$total\" 'BEGIN{printf \"%.1f\", t/1024/1024}'); if [ \"$pct\" -ge 90 ]; then cls=critical; elif [ \"$pct\" -ge 70 ]; then cls=warning; else cls=normal; fi; printf '{\"text\":\"󰍛 %s GiB\",\"tooltip\":\"%s%% used · %s / %s GiB\",\"class\":\"%s\"}' \"$used_gib\" \"$pct\" \"$used_gib\" \"$total_gib\" \"$cls\"",
+    "tooltip": true
+  },
+  // Speaker / headphones – custom scroll unmutes output automatically
+  "wireplumber": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 muted",
+    "format-icons": {
+      "headphone": "󰋋",
+      "default": [
+        "󰕿",
+        "󰖀",
+        "󰕾"
+      ]
+    },
+    "max-volume": 100,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "pavucontrol -t 3",
+    "on-scroll-up": "sh -c 'wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 1%+'",
+    "on-scroll-down": "sh -c 'wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-'"
+  },
+  // Microphone
+  "custom/mic": {
+    "return-type": "json",
+    "exec": "sh -c 'status() { out=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ 2>/dev/null); vol=$(echo \"$out\" | awk \"{printf \\\"%d\\\", \\$2 * 100}\"); if echo \"$out\" | grep -q MUTED; then printf \"{\\\"text\\\":\\\"󰍭 muted\\\",\\\"class\\\":\\\"muted\\\"}\\n\"; else printf \"{\\\"text\\\":\\\"󰍬 %s%%\\\",\\\"class\\\":\\\"active\\\"}\\n\" \"${vol:-0}\"; fi; }; status; pactl subscribe 2>/dev/null | grep --line-buffered -E \"on (source|server)\" | while read -r _; do status; done'",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-click-right": "pavucontrol -t 4",
+    "on-scroll-up": "sh -c 'wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 0; wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 1%+'",
+    "on-scroll-down": "sh -c 'wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 0; wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-'",
+    "tooltip-format": "Microphone"
+  },
+  // Separator
+  "custom/sep": {
+    "format": "|",
+    "tooltip": false
+  },
+  // Log out of the Wayland session
+  "custom/logout": {
+    "tooltip-format": "Log out",
+    "on-click": "swaymsg exit",
+    "format": "󰍃"
+  },
+  // Reboot
+  "custom/reboot": {
+    "tooltip-format": "Reboot",
+    "on-click": "systemctl reboot",
+    "format": "󰜉"
+  },
+  // Power off
+  "custom/power": {
+    "tooltip-format": "Shut down",
+    "on-click": "systemctl poweroff",
+    "format": "⏻"
+  },
+  // Notification center (SwayNC)
+  "custom/notification": {
+    "escape": true,
+    "exec": "swaync-client -swb",
+    "exec-if": "command -v swaync-client",
+    "format": "{icon}",
+    "format-icons": {
+      "none": "󰂚",
+      "notification": "󰂞"
+    },
+    "on-click": "sleep 0.1 && swaync-client -t -sw",
+    "return-type": "json",
+    "tooltip": false
+  }
+}

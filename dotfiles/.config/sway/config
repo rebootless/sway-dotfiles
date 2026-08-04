@@ -1,0 +1,31 @@
+### Variables — loaded first, everything else depends on them
+include ~/.config/sway/config.d/variables.conf
+include /etc/sway/config-vars.d/*
+
+### Wallpaper
+include ~/.config/sway/config.d/wallpaper.conf
+
+### WM daemon autostart (waybar, polkit, notification daemon)
+include ~/.config/sway/config.d/autostart.conf
+
+### User application autostart (nm-applet, copyq, flameshot)
+include ~/.config/sway/config.d/applications.conf
+
+### Input (keyboard, touchpad)
+include ~/.config/sway/config.d/input.conf
+
+### Keybindings and workspaces
+include ~/.config/sway/config.d/keybindings.conf
+include ~/.config/sway/config.d/workspaces.conf
+
+### Media keys (volume, brightness)
+include ~/.config/sway/config.d/audio.conf
+
+### Screenshots
+include ~/.config/sway/config.d/screenshots.conf
+
+### Appearance (borders, gaps, colors)
+include ~/.config/sway/config.d/appearance.conf
+
+### System drop-ins (Debian packages put configs here)
+include /etc/sway/config.d/*

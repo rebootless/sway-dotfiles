@@ -1,0 +1,129 @@
+#!/bin/bash
+
+set -euo pipefail
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+SCRIPT_PATH="$(readlink -f "$0" 2>/dev/null || echo "$0")"
+SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
+LIB_DIR="$SCRIPT_DIR/lib"
+
+# shellcheck source=lib/paths.sh
+source "$LIB_DIR/paths.sh"
+# shellcheck source=lib/shell-config.sh
+source "$LIB_DIR/shell-config.sh"
+# shellcheck source=lib/omb.sh
+source "$LIB_DIR/omb.sh"
+# shellcheck source=lib/demo.sh
+source "$LIB_DIR/demo.sh"
+
+print_help() {
+    cat <<EOF
+bash-qol - shell quality-of-life tools + optional oh-my-bash, no aliases
+
+Usage:
+  bash-qol [options]
+
+Options:
+  --omb=interactive                  Install oh-my-bash, pick a theme via
+                                     an interactive chafa-previewed picker
+  --omb=non-interactive --theme=NAME
+                                     Install oh-my-bash with a given theme,
+                                     no prompts
+  --demo                             Run the tool showcase as a final step
+  --help                             Show this help
+
+Notes:
+  - --theme is only valid together with --omb=non-interactive.
+  - --omb=non-interactive requires --theme.
+  - Re-running is safe: existing managed blocks in ~/.bashrc are replaced,
+    not duplicated; backups are written alongside the originals.
+EOF
+}
+
+main() {
+    local omb_mode="" theme="" run_demo_flag="false"
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --help)
+                print_help
+                exit 0
+                ;;
+            --omb=interactive)
+                omb_mode="interactive"
+                shift
+                ;;
+            --omb=non-interactive)
+                omb_mode="non-interactive"
+                shift
+                ;;
+            --omb=*)
+                echo "Invalid value for --omb: '${1#--omb=}' (expected interactive or non-interactive)" >&2
+                exit 1
+                ;;
+            --theme=*)
+                theme="${1#--theme=}"
+                shift
+                ;;
+            --demo)
+                run_demo_flag="true"
+                shift
+                ;;
+            *)
+                echo "Unknown option: $1" >&2
+                echo "  Run 'bash-qol --help' for usage." >&2
+                exit 1
+                ;;
+        esac
+    done
+
+    if [[ -n "$theme" && "$omb_mode" != "non-interactive" ]]; then
+        echo "--theme is only valid together with --omb=non-interactive" >&2
+        exit 1
+    fi
+
+    if [[ "$omb_mode" == "non-interactive" && -z "$theme" ]]; then
+        echo "--omb=non-interactive requires --theme=NAME" >&2
+        exit 1
+    fi
+
+    bash "$SCRIPT_DIR/requirements.sh"
+
+    configure_shell
+
+    if [[ -n "$omb_mode" ]]; then
+        if [[ "$omb_mode" == "interactive" ]]; then
+            configure_omb "true" ""
+        else
+            configure_omb "false" "$theme"
+        fi
+    fi
+
+    if [[ "$run_demo_flag" == "true" ]]; then
+        run_demo
+    fi
+
+    echo ""
+    echo "==> Summary"
+
+    echo ""
+    echo "bash-qol setup complete."
+    echo "  Packages:   bash-completion, fzf, zoxide, ripgrep, bat, eza, chafa, git"
+    echo "  ~/.bashrc:  managed block $MARK_START_QOL ... $MARK_END_QOL"
+    echo "  ~/.inputrc: replaced (backup saved if it existed)"
+
+    echo ""
+    if [[ -n "$omb_mode" ]]; then
+        echo "oh-my-bash: $OSH (theme: $SELECTED_THEME)"
+    fi
+
+    echo ""
+    echo "Apply changes now with:"
+    echo "  source ~/.bashrc"
+
+    echo ""
+    echo "to display icons correctly, install a Nerd Font:"
+    echo "  https://www.nerdfonts.com/ (e.g. JetBrainsMono)"
+}
+
+main "$@"
