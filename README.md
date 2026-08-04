@@ -80,6 +80,49 @@ At the end it prints a reminder of the intended Qt/GTK theme settings (Nord / Br
 
 > The script is intentionally **not idempotent** as a full re-provisioning tool — it's meant for a first, clean install. Re-running it is safe (nothing is destroyed without a backup), but it will re-apply and re-overwrite dotfiles every time rather than diffing or merging changes.
 
+### ⌨️ Basic Controls
+
+> The default modifier key (`$mod`) is **Super** (the Windows key). The configuration uses the standard Sway keybindings with a few additional convenience bindings.
+
+#### Window Management
+
+| Shortcut | Action |
+|----------|--------|
+| `Super` + `Enter` | Open terminal |
+| `Super` + `D` | Open application launcher (wofi) |
+| `Super` + `Shift` + `Q` | Close focused window |
+| `Super` + `Shift` + `C` | Reload the Sway configuration |
+| `Super` + `Shift` + `E` | Exit the Sway session |
+| `Super` + `← ↑ ↓ →` | Move keyboard focus |
+| `Super` + `Shift` + `← ↑ ↓ →` | Move the focused window |
+| `Super` + `B` | Horizontal split |
+| `Super` + `V` | Vertical split |
+| `Super` + `E` | Toggle split layout |
+| `Super` + `S` | Stacking layout |
+| `Super` + `W` | Tabbed layout |
+| `Super` + `F` | Toggle fullscreen |
+| `Super` + `Shift` + `Space` | Toggle floating mode |
+| `Super` + `Space` | Switch focus between tiling and floating windows |
+| `Super` + `A` | Focus parent container |
+| `Super` + `Shift` + `-` | Send window to scratchpad |
+| `Super` + `-` | Show/cycle scratchpad windows |
+| `Super` + `R` | Enter resize mode |
+| `Enter` / `Esc` | Exit resize mode |
+
+#### Desktop Utilities
+
+| Shortcut | Action |
+|----------|--------|
+| `Print` | Screenshot with Flameshot |
+
+#### Keyboard
+
+| Shortcut | Action |
+|----------|--------|
+| `Alt` + `Shift` | Switch layout |
+
+> Window management shortcuts come from the standard Sway configuration, while screenshots, multimedia keys, keyboard layout, and brightness controls are provided by this configuration. 
+
 ### 🩹 Known Gaps
 
 - **The Nordic GTK theme is still bundled as a static copy** in `dotfiles/.local/share/themes/Nordic`
