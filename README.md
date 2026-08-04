@@ -27,7 +27,7 @@ A single `install.sh` that takes a fresh Debian 13 machine to a fully configured
 - A machine installed with only the **"Standard system utilities"** task selected in the Debian installer (`tasksel`) — i.e. a minimal base system, no desktop environment, no display manager, nothing pre-configured. The package scripts in `scripts/` assume that baseline; running on top of an existing DE or a different package set is untested and may conflict.
 - An internet connection — apt, Nerd Fonts, Zafiro icons, and bash-qol all fetch from the network during install.
 
-### 🗒️ What's included
+### 🗒️ What's Included
 
 | Role | Program |
 | --- | :--: |
@@ -78,7 +78,7 @@ At the end it prints a reminder of the intended Qt/GTK theme settings (Nord / Br
 
 > The script is intentionally **not idempotent** as a full re-provisioning tool — it's meant for a first, clean install. Re-running it is safe (nothing is destroyed without a backup), but it will re-apply and re-overwrite dotfiles every time rather than diffing or merging changes.
 
-### 🩹 Known gaps
+### 🩹 Known Gaps
 
 - **The Nordic GTK theme is still bundled as a static copy** in `dotfiles/.local/share/themes/Nordic`
 - **`Zafiro-Icons-Dark` is assumed as the exact theme name** in `qt5ct.conf`/`qt6ct.conf`/`gtk-3.0/settings.ini`
