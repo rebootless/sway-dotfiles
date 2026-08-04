@@ -1,0 +1,168 @@
+/* Nord palette */
+@define-color color0  #3B4252;
+@define-color color1  #BF616A;
+@define-color color2  #A3BE8C;
+@define-color color3  #EBCB8B;
+@define-color color4  #81A1C1;
+@define-color color5  #B48EAD;
+@define-color color6  #88C0D0;
+@define-color color7  #E5E9F0;
+@define-color color8  #4C566A;
+@define-color color9  #BF616A;
+@define-color color10 #A3BE8C;
+@define-color color11 #EBCB8B;
+@define-color color12 #81A1C1;
+@define-color color13 #B48EAD;
+@define-color color14 #8FBCBB;
+@define-color color15 #ECEFF4;
+
+* {
+    all: unset;
+    font-family: Lexend, "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: @color7;
+    transition: 150ms ease;
+}
+
+/* ---------- Control Center ---------- */
+.control-center {
+    background-color: @color0;
+    border: 2px solid @color6;
+    border-radius: 0;
+    padding: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.control-center .notification-row {
+    outline: none;
+    margin: 0 0 8px 0;
+    padding: 0;
+}
+
+.control-center .notification-row:last-child {
+    margin-bottom: 0;
+}
+
+.control-center .notification-row .notification-background {
+    background-color: @color0;
+    border: 1px solid @color8;
+    border-radius: 0;
+    padding: 10px 12px;
+}
+
+.control-center .notification-row .notification-background:hover {
+    background-color: @color8;
+    border-color: @color6;
+}
+
+/* ---------- Floating notifications (toasts) ---------- */
+.floating-notifications.background .notification-row {
+    margin: 0 0 10px 0;
+    outline: none;
+}
+
+.floating-notifications.background .notification-row .notification-background {
+    background-color: @color0;
+    border: 2px solid @color6;
+    border-radius: 0;
+    padding: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    margin: 0 12px;
+}
+
+.floating-notifications.background .notification-row .notification-background.critical {
+    border-color: @color1;
+}
+
+/* ---------- Notification content ---------- */
+.notification {
+    padding: 0;
+}
+
+.notification .notification-content {
+    margin: 0;
+    padding: 0;
+}
+
+.notification .summary {
+    color: @color15;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.notification .time {
+    color: @color8;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 6px;
+}
+
+.notification .body {
+    color: @color7;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+.notification.critical .summary {
+    color: @color1;
+}
+
+/* Close button */
+.notification .close-button {
+    background-color: transparent;
+    color: @color8;
+    margin: 0 0 0 8px;
+    padding: 2px;
+    border-radius: 0;
+}
+
+.notification .close-button:hover {
+    color: @color1;
+    background-color: transparent;
+}
+
+/* ---------- Widgets ---------- */
+.widget-title {
+    margin-bottom: 10px;
+    color: @color15;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.widget-title > button {
+    background-color: @color0;
+    color: @color7;
+    border: 1px solid @color8;
+    border-radius: 0;
+    padding: 4px 10px;
+    font-size: 12px;
+}
+
+.widget-title > button:hover {
+    background-color: @color8;
+    border-color: @color6;
+    color: @color15;
+}
+
+/* Empty state */
+.control-center-list-placeholder {
+    color: @color8;
+    font-style: italic;
+}
+
+/* Scrollbar */
+scrollbar {
+    background: transparent;
+}
+
+scrollbar slider {
+    background-color: @color8;
+    border-radius: 0;
+    min-width: 4px;
+    min-height: 4px;
+}
+
+scrollbar slider:hover {
+    background-color: @color6;
+}
