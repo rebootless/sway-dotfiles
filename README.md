@@ -53,7 +53,7 @@ A single `install.sh` that takes a fresh Debian 13 machine to a fully configured
 | **Qt/GTK bridge**  | qt5ct, qt6ct, nwg-look, Breeze style |
 | **Fonts**          | [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts): JetBrainsMono, FiraCode, Hack, Meslo, SourceCodePro |
 
-> The exact package list lives in `scripts/install-pkgs-*.sh` (one file per category — core, wayland-core, theming, audio, network, notify, storage, system-helpers, graphics, apps). `kitty`, `kate`, `swaylock`, and `swayidle` are installed directly by `install.sh` instead — see the comment block at the top of `install.sh` for why.
+> The exact package list lives in `scripts/install-pkgs-*.sh` (one file per category — core, wayland-core, theming, audio, network, notify, storage, system-helpers, graphics, apps). `kitty`, `kate` are installed directly by `install.sh` instead — see the comment block at the top of `install.sh` for why.
 
 ### 🚀 Installation
 
