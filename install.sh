@@ -114,7 +114,7 @@ as_root apt-get update -q
 echo "==> [2/9] Installing kitty"
 as_root apt-get install -y kitty
 
-echo "==> [2/9] Installing kate" # --no-install-recommends, otherwise it pulls in systemsettings)
+echo "==> [2/9] Installing kate" # --no-install-recommends, otherwise it pulls systemsettings
 as_root apt-get install -y --no-install-recommends kate
 
 echo "==> [2/9] Installing package groups"
