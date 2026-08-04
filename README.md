@@ -87,9 +87,10 @@ At the end it prints a reminder of the intended Qt/GTK theme settings (Nord / Br
 
 ### 🙏 Acknowledgements
 
-- [Zafiro-icons](https://github.com/zayronxio/Zafiro-icons) — Icon theme
+- [Zafiro Icons](https://github.com/zayronxio/Zafiro-icons) — Icon theme
 - [Nordic](https://github.com/EliverLara/Nordic) — GTK theme
 - [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts) — Fonts
+- [Nordic Wallpapers](https://github.com/linuxdotexe/nordic-wallpapers) — Wallpapers
 
 ### 📜 License
 
