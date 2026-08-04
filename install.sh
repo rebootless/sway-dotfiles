@@ -111,7 +111,7 @@ check_distro
 echo "==> [2/9] apt update"
 as_root apt-get update -q
 
-echo "==> [2/9] Installing kitty" # before sway, otherwise sway pulls in foot)"
+echo "==> [2/9] Installing kitty"
 as_root apt-get install -y kitty
 
 echo "==> [2/9] Installing kate" # --no-install-recommends, otherwise it pulls in systemsettings)
@@ -189,6 +189,10 @@ echo "==> [9/9] Enabling system services"
 as_root systemctl enable --now NetworkManager
 as_root systemctl enable --now bluetooth
 as_root systemctl enable --now firewalld
+
+echo "==> [9/9] Cleaning up"
+as_root apt purge -y foot
+as_root apt autoremove -y
 
 echo ""
 echo "==> Summary"
