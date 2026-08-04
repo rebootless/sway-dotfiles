@@ -8,8 +8,7 @@
 #
 # Stages:
 #   1. Distro check (must be Debian 13 / trixie)
-#   2. apt install packages (scripts/install-pkgs-*.sh, plus kitty/kate/
-#      swaylock/swayidle installed directly here — see notes below)
+#   2. apt install packages (scripts/install-pkgs-*.sh, plus kitty and kate)
 #   3. Nerd Fonts (scripts/install-nerd-fonts.sh)
 #   4. ranger_devicons (scripts/install-ranger-devicons.sh)
 #   5. Zafiro icon themes, Dark + Light (scripts/install-zafiro-icons.sh)
@@ -35,7 +34,7 @@
 # changes, re-copy the relevant file(s) by hand; there's no submodule/sync
 # mechanism here.
 #
-# kitty/kate/swaylock/swayidle are intentionally NOT installed via a
+# kitty and kate are intentionally NOT installed via a
 # shell-toolkit script:
 #   - kitty must install before install-pkgs-wayland-core.sh (which pulls
 #     in sway), otherwise sway's Recommends pulls in foot as well.
@@ -44,11 +43,6 @@
 #     meta-package. That's explicitly what we don't want here, so kate is
 #     installed with its own apt-get call below instead of calling that
 #     script.
-#   - swaylock/swayidle aren't packaged by shell-toolkit at all (it's a
-#     generic toolkit, not sway-specific), so they're installed directly.
-#     NOTE: as of this revision neither is wired into any keybind or
-#     swayidle timeout config — see the PR discussion, this needs a decision
-#     (wire them up, or drop the packages).
 #
 # Dotfiles templating (__HOME__ placeholder):
 #   Some config formats (e.g. qt5ct.conf/qt6ct.conf — plain Qt INI files,
@@ -117,7 +111,7 @@ check_distro
 echo "==> [2/9] apt update"
 as_root apt-get update -q
 
-echo "==> [2/9] Installing kitty" #before sway, otherwise sway pulls in foot)"
+echo "==> [2/9] Installing kitty" # before sway, otherwise sway pulls in foot)"
 as_root apt-get install -y kitty
 
 echo "==> [2/9] Installing kate" # --no-install-recommends, otherwise it pulls in systemsettings)
