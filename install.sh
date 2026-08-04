@@ -190,6 +190,9 @@ as_root systemctl enable --now NetworkManager
 as_root systemctl enable --now bluetooth
 as_root systemctl enable --now firewalld
 
+echo "==> [9/9] Updating icon theme cache"
+as_user gtk-update-icon-theme -f "$REAL_HOME/.local/share/icons/Zafiro-Icons-Dark"
+
 echo "==> [9/9] Cleaning up"
 as_root apt purge -y foot
 as_root apt autoremove -y
