@@ -10,9 +10,15 @@
 
 A single `install.sh` that takes a fresh Debian 13 machine to a fully configured, Nord-themed Sway desktop: packages, fonts, icon themes, shell, and dotfiles, in one non-interactive run.
 
-<!--
-<p align="center"><img src="./screenshots/2026-08-04_04-05.png" width="800"></p>
--->
+<table align="center">
+<tr>
+<td>
+
+<img src="./screenshots/2026-08-04_04-05.png" width="900" alt="Desktop screenshot">
+
+</td>
+</tr>
+</table>
 
 ### ✅ Requirements
 
