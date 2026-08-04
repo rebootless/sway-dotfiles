@@ -51,7 +51,7 @@ check_distro
 echo "==> [2/9] apt update"
 as_root apt-get update -q
 
-echo "==> [2/9] Installing kitty" #before sway, otherwise sway pulls in foot)"
+echo "==> [2/9] Installing kitty" # before sway, otherwise sway pulls in foot)"
 as_root apt-get install -y kitty
 
 echo "==> [2/9] Installing kate" # --no-install-recommends, otherwise it pulls in systemsettings)
