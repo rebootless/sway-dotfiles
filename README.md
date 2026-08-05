@@ -1,5 +1,5 @@
 <h1 align="center">sway-dotfiles</h1>
-<h3 align="center">A reproducible Sway/Wayland desktop</h3>
+<h3 align="center">🧊 Nordic-inspired, reproducible Sway/Wayland desktop.</h3>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Debian-13%20(trixie)-5E81AC?style=for-the-badge&labelColor=2E3440&logo=debian&logoColor=ECEFF4">
