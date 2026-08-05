@@ -1,4 +1,5 @@
-<h3 align="center">A reproducible Sway/Wayland desktop for Debian 13 (trixie)</h3>
+<h1 align="center">sway-dotfiles</h1>
+<h3 align="center">A reproducible Sway/Wayland desktop</h3>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Debian-13%20(trixie)-5E81AC?style=for-the-badge&labelColor=2E3440&logo=debian&logoColor=ECEFF4">
@@ -8,48 +9,34 @@
   <img src="https://img.shields.io/badge/License-GPL--3.0-BF616A?style=for-the-badge&labelColor=2E3440&logo=gnu&logoColor=ECEFF4">
 </p>
 
-A single `install.sh` that takes a fresh Debian 13 machine to a fully configured, Nord-themed Sway desktop: packages, fonts, icon themes, shell, and dotfiles, in one non-interactive run.
-
 <p align="center">
-  <img src="./screenshots/2026-08-04_04-05.png" width="900" alt="screenshot">
+  <img src="./screenshots/2026-08-05_05-48.png" width="900" alt="screenshot">
 </p>
 
-### ✅ Requirements
+<details>
+<summary align="center"><b>🖼️ Gallery</b> <i>(click to expand)</i></summary>
+<br>
 
-* **Debian 13 (trixie)**, nothing else — `install.sh` checks `/etc/os-release` and refuses to run on anything else.
-* A **regular user with sudo rights**. Don't run the script as root — it calls `sudo` itself wherever needed.
-* **`sudo` and `git` must already be installed**, as they are required to clone the repository and execute the installation process.
-* A machine installed with only the **"Standard system utilities"** task selected in the Debian installer (`tasksel`) — i.e. a minimal base system, no desktop environment, no display manager, nothing pre-configured. The package scripts in `scripts/` assume that baseline; running on top of an existing DE or a different package set is untested and may conflict.
-* An internet connection — apt, Nerd Fonts, Zafiro icons, and bash-qol all fetch from the network during install.
+<p align="center">
+  <img src="./screenshots/2026-08-05_05-31.png" width="900">
+</p>
+<p align="center">
+  <img src="./screenshots/2026-08-05_05-42.png" width="900">
+</p>
+<p align="center">
+  <img src="./screenshots/2026-08-05_05-44.png" width="900">
+</p>
+<p align="center">
+  <img src="./screenshots/2026-08-04_04-05.png" width="900">
+</p>
+<p align="center">
+  <img src="./screenshots/2026-08-05_05-49.png" width="900">
+</p>
 
-### 🗒️ What's Included
+</details>
 
-| Role               | Program |
-| ------------------ | -------------------------------------- |
-| **Window Manager** | [Sway](https://github.com/swaywm/sway) |
-| **Terminal**       | [kitty](https://github.com/kovidgoyal/kitty) |
-| **Bar**            | [Waybar](https://github.com/Alexays/Waybar) |
-| **Launcher**       | [wofi](https://hg.sr.ht/~scoopta/wofi) |
-| **Notifications**  | [SwayNotificationCenter](https://github.com/ErikReider/SwayNotificationCenter) |
-| **File manager**   | [ranger](https://github.com/ranger/ranger) (TUI), [Thunar](https://gitlab.xfce.org/xfce/thunar) (GUI) |
-| **Text editor**    | [Kate](https://apps.kde.org/kate/) |
-| **Browser**        | Firefox ESR |
-| **Network**        | NetworkManager + nm-applet |
-| **Firewall**       | firewalld, firewall-config |
-| **Bluetooth**      | blueman |
-| **Audio**          | PipeWire / WirePlumber |
-| **Screenshot**     | flameshot, grim + slurp |
-| **Clipboard**      | CopyQ, wl-clipboard |
-| **Music / media**  | cmus, VLC, cava |
-| **Shell**          | Bash |
-| **GTK theme**      | [Nordic](https://github.com/EliverLara/Nordic) |
-| **Icon theme**     | [Zafiro-icons](https://github.com/zayronxio/Zafiro-icons) |
-| **Qt/GTK bridge**  | qt5ct, qt6ct, nwg-look, Breeze style |
-| **Fonts**          | [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts): JetBrainsMono, FiraCode, Hack, Meslo, SourceCodePro |
-
-> The exact package list lives in `scripts/install-pkgs-*.sh` (one file per category — core, wayland-core, theming, audio, network, notify, storage, system-helpers, graphics, apps). `kitty`, `kate` are installed directly by `install.sh` instead — see the comment block at the top of `install.sh` for why.
-
-### 🚀 Installation
+> **One script. A fresh Debian 13 install in, a fully themed Sway desktop out.**<br>
+> Installs packages, fonts, icons, shell configuration, and dotfiles — non-interactively.
 
 ```bash
 git clone https://github.com/rebootless/sway-dotfiles
@@ -57,78 +44,167 @@ cd sway-dotfiles
 chmod +x install.sh
 ./install.sh
 ```
+---
 
-No flags. The script runs straight through:
+### 🧩 Included Software
 
-1. Checks you're on Debian 13 (trixie)
-2. Installs packages: `kitty` first (before `sway`, so it doesn't pull in `foot`), `kate` with `--no-install-recommends` (so it doesn't pull in `systemsettings`), then the rest via `scripts/install-pkgs-*.sh`
-3. Installs Nerd Fonts
-4. Installs `ranger` devicons
-5. Installs Zafiro icon themes (Dark + Light, downloaded from the latest GitHub release)
-6. Copies `dotfiles/` in `$HOME` — anything it's about to overwrite is backed up first to `~/.dotfiles-backup-<timestamp>/`
-7. Runs `bash-qol` non-interactively (oh-my-bash, `agnoster` theme, no demo) on top of the dotfiles it just laid down
-8. Runs `xdg-user-dirs-update`
-9. Enables NetworkManager, bluetooth, and firewalld
+<table align="center">
+<tr>
+<td align="center" width="50%">
 
-At the end it prints a reminder of the intended Qt/GTK theme settings (Nord / Breeze / Zafiro-Icons-Dark or -Light) in case anything didn't take automatically, and reminds you that a reboot (or at least a fresh login) is needed — it won't reboot the machine for you.
+**🪟 Window Manager & Bar**<br>
+<a href="https://github.com/swaywm/sway"><img src="https://img.shields.io/badge/Sway-88C0D0?style=for-the-badge"></a>
+<a href="https://github.com/Alexays/Waybar"><img src="https://img.shields.io/badge/Waybar-88C0D0?style=for-the-badge"></a>
 
-> The script is intentionally **not idempotent** as a full re-provisioning tool — it's meant for a first, clean install. Re-running it is safe (nothing is destroyed without a backup), but it will re-apply and re-overwrite dotfiles every time rather than diffing or merging changes.
+</td>
+<td align="center" width="50%">
 
-### ⌨️ Basic Controls
+**🖥️ Terminal**<br>
+<a href="https://github.com/kovidgoyal/kitty"><img src="https://img.shields.io/badge/kitty-8FBCBB?style=for-the-badge"></a>
 
-> The default modifier key (`$mod`) is **Super** (the Windows key). The configuration uses the standard Sway keybindings with a few additional convenience bindings.
+</td>
+</tr>
+<tr>
+<td align="center">
 
-#### Window Management
+**🚀 Launcher & Notifications**<br>
+<a href="https://hg.sr.ht/~scoopta/wofi"><img src="https://img.shields.io/badge/wofi-8FBCBB?style=for-the-badge"></a>
+<a href="https://github.com/ErikReider/SwayNotificationCenter"><img src="https://img.shields.io/badge/SwayNC-8FBCBB?style=for-the-badge"></a>
+
+</td>
+<td align="center">
+
+**📁 File Management**<br>
+<a href="https://github.com/ranger/ranger"><img src="https://img.shields.io/badge/ranger-81A1C1?style=for-the-badge"></a>
+<a href="https://gitlab.xfce.org/xfce/thunar"><img src="https://img.shields.io/badge/Thunar-81A1C1?style=for-the-badge"></a>
+
+</td>
+</tr>
+<tr>
+<td align="center">
+
+**📝 Editor & Browser**<br>
+<a href="https://apps.kde.org/kate/"><img src="https://img.shields.io/badge/Kate-81A1C1?style=for-the-badge"></a>
+<a href="https://www.mozilla.org/firefox/"><img src="https://img.shields.io/badge/Firefox%20ESR-81A1C1?style=for-the-badge"></a>
+
+</td>
+<td align="center">
+
+**📡 Network, Bluetooth & Security**<br>
+<a href="https://networkmanager.dev/"><img src="https://img.shields.io/badge/NetworkManager-5E81AC?style=for-the-badge"></a>
+<a href="https://github.com/blueman-project/blueman"><img src="https://img.shields.io/badge/blueman-5E81AC?style=for-the-badge"></a>
+<a href="https://firewalld.org/"><img src="https://img.shields.io/badge/firewalld-5E81AC?style=for-the-badge"></a>
+
+</td>
+</tr>
+<tr>
+<td align="center">
+
+**🔊 Audio**<br>
+<a href="https://pipewire.org/"><img src="https://img.shields.io/badge/PipeWire-B48EAD?style=for-the-badge"></a>
+<a href="https://pipewire.pages.freedesktop.org/wireplumber/"><img src="https://img.shields.io/badge/WirePlumber-B48EAD?style=for-the-badge"></a>
+
+</td>
+<td align="center">
+
+**📸 Screenshots & Clipboard**<br>
+<a href="https://flameshot.org/"><img src="https://img.shields.io/badge/flameshot-A3BE8C?style=for-the-badge"></a>
+<a href="https://sr.ht/~emersion/grim/"><img src="https://img.shields.io/badge/grim-A3BE8C?style=for-the-badge"></a>
+<a href="https://sr.ht/~emersion/slurp/"><img src="https://img.shields.io/badge/slurp-A3BE8C?style=for-the-badge"></a>
+<a href="https://github.com/hluk/CopyQ"><img src="https://img.shields.io/badge/CopyQ-A3BE8C?style=for-the-badge"></a>
+
+</td>
+</tr>
+<tr>
+<td align="center">
+
+**🎵 Media Playback**<br>
+<a href="https://github.com/cmus/cmus"><img src="https://img.shields.io/badge/cmus-A3BE8C?style=for-the-badge"></a>
+<a href="https://www.videolan.org/vlc/"><img src="https://img.shields.io/badge/VLC-A3BE8C?style=for-the-badge"></a>
+<a href="https://github.com/LukashonakV/cava"><img src="https://img.shields.io/badge/cava-A3BE8C?style=for-the-badge"></a>
+
+</td>
+<td align="center">
+
+**🎨 Theming**<br>
+<a href="https://github.com/EliverLara/Nordic"><img src="https://img.shields.io/badge/Nordic-EBCB8B?style=for-the-badge"></a>
+<a href="https://github.com/zayronxio/Zafiro-icons"><img src="https://img.shields.io/badge/Zafiro--icons-EBCB8B?style=for-the-badge"></a>
+<img src="https://img.shields.io/badge/qt5ct%20%2F%20qt6ct-EBCB8B?style=for-the-badge">
+<a href="https://github.com/nwg-piotr/nwg-look"><img src="https://img.shields.io/badge/nwg--look-EBCB8B?style=for-the-badge"></a>
+<img src="https://img.shields.io/badge/Breeze-EBCB8B?style=for-the-badge">
+
+</td>
+</tr>
+<tr>
+<td align="center" colspan="2">
+
+**🔤 Fonts**<br>
+<a href="https://github.com/ryanoasis/nerd-fonts"><img src="https://img.shields.io/badge/Nerd%20Fonts-D08770?style=for-the-badge"></a>
+<a href="https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/JetBrainsMono"><img src="https://img.shields.io/badge/JetBrainsMono-D08770?style=for-the-badge"></a>
+<a href="https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode"><img src="https://img.shields.io/badge/FiraCode-D08770?style=for-the-badge"></a>
+<a href="https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack"><img src="https://img.shields.io/badge/Hack-D08770?style=for-the-badge"></a>
+<a href="https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Meslo"><img src="https://img.shields.io/badge/Meslo-D08770?style=for-the-badge"></a>
+<a href="https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/SourceCodePro"><img src="https://img.shields.io/badge/SourceCodePro-D08770?style=for-the-badge"></a>
+
+</td>
+</tr>
+</table>
+
+---
+
+### 📋 Requirements
+
+- **Debian 13 (trixie)** only — `install.sh` checks `/etc/os-release` and refuses anything else.
+- A **regular sudo user**, not root — `sudo` and `git` must already be installed.
+- A **minimal base install** (Debian installer, "Standard system utilities" only) — no existing DE, nothing pre-configured.
+- An **internet connection** — apt, fonts, icons and the shell setup all pull from the network.
+
+### ⚡ Installation Process
+
+1. Installs packages via `scripts/install-pkgs-*.sh`
+2. Installs Nerd Fonts, `ranger` devicons, and Zafiro icons.
+3. Copies `dotfiles/` into `$HOME`
+4. Sets up the shell and user dirs.
+5. Enables NetworkManager, bluetooth and firewalld.
+
+> [!IMPORTANT]
+> ♻️ Re-running the installer **does not merge existing dotfiles**. Managed files are backed up and then overwritten on every run.
+
+<details>
+<summary><b>⌨️ Keybindings</b> <i>(click to expand)</i></summary>
+<br>
+
+`$mod` = **`Win`**
 
 | Shortcut | Action |
 |----------|--------|
-| `Super` + `Enter` | Open terminal |
-| `Super` + `D` | Open application launcher (wofi) |
-| `Super` + `Shift` + `Q` | Close focused window |
-| `Super` + `Shift` + `C` | Reload the Sway configuration |
-| `Super` + `Shift` + `E` | Exit the Sway session |
-| `Super` + `← ↑ ↓ →` | Move keyboard focus |
-| `Super` + `Shift` + `← ↑ ↓ →` | Move the focused window |
-| `Super` + `B` | Horizontal split |
-| `Super` + `V` | Vertical split |
-| `Super` + `E` | Toggle split layout |
-| `Super` + `S` | Stacking layout |
-| `Super` + `W` | Tabbed layout |
-| `Super` + `F` | Toggle fullscreen |
-| `Super` + `Shift` + `Space` | Toggle floating mode |
-| `Super` + `Space` | Switch focus between tiling and floating windows |
-| `Super` + `A` | Focus parent container |
-| `Super` + `Shift` + `-` | Send window to scratchpad |
-| `Super` + `-` | Show/cycle scratchpad windows |
-| `Super` + `R` | Enter resize mode |
-| `Enter` / `Esc` | Exit resize mode |
+| `$mod` + `Enter` | Open terminal |
+| `$mod` + `D` | App launcher |
+| `$mod` + `Shift` + `Q` | Close window |
+| `$mod` + `Shift` + `C` | Reload config |
+| `$mod` + `Shift` + `E` | Exit session |
+| `$mod` + `← ↑ ↓ →` | Move focus |
+| `$mod` + `Shift` + `← ↑ ↓ →` | Move window |
+| `$mod` + `B` / `V` | Split horizontal / vertical |
+| `$mod` + `E` | Toggle split layout |
+| `$mod` + `S` / `W` | Stacking / tabbed layout |
+| `$mod` + `F` | Fullscreen |
+| `$mod` + `Shift` + `Space` | Toggle floating |
+| `$mod` + `Space` | Switch tiling ↔ floating focus |
+| `$mod` + `A` | Focus parent container |
+| `$mod` + `Shift` + `-` / `-` | Send to / cycle scratchpad |
+| `$mod` + `R` | Resize mode |
+| `Print` | Screenshot |
+| `Alt` + `Shift` | Switch keyboard layout |
 
-#### Desktop Utilities
+</details>
 
-| Shortcut | Action |
-|----------|--------|
-| `Print` | Screenshot with Flameshot |
+### ✨ Acknowledgements
 
-#### Keyboard
+[Zafiro Icons](https://github.com/zayronxio/Zafiro-icons) · [Nordic](https://github.com/EliverLara/Nordic) · [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts) · [Nordic Wallpapers](https://github.com/linuxdotexe/nordic-wallpapers)
 
-| Shortcut | Action |
-|----------|--------|
-| `Alt` + `Shift` | Switch layout |
+<hr>
 
-> Window management shortcuts come from the standard Sway configuration, while screenshots, multimedia keys, keyboard layout, and brightness controls are provided by this configuration. 
-
-### 🩹 Known Gaps
-
-- **The Nordic GTK theme is still bundled as a static copy** in `dotfiles/.local/share/themes/Nordic`
-- **`Zafiro-Icons-Dark` is assumed as the exact theme name** in `qt5ct.conf`/`qt6ct.conf`/`gtk-3.0/settings.ini`
-
-### 🙏 Acknowledgements
-
-- [Zafiro Icons](https://github.com/zayronxio/Zafiro-icons) — Icon theme
-- [Nordic](https://github.com/EliverLara/Nordic) — GTK theme
-- [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts) — Fonts
-- [Nordic Wallpapers](https://github.com/linuxdotexe/nordic-wallpapers) — Wallpapers
-
-### 📜 License
-
-This project is licensed under the **GNU General Public License v3.0** — see the [LICENSE](LICENSE) file for details.
+<p align="center">
+  Licensed under the <a href="LICENSE">GNU GPL v3.0</a> license.
+</p>
