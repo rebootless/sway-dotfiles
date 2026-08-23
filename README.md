@@ -206,5 +206,5 @@ chmod +x install.sh
 <hr>
 
 <p align="center">
-  Licensed under the <a href="LICENSE">GNU GPL v3.0</a> license.
+  Licensed under the <a href="LICENSE">MIT</a> license.
 </p>
