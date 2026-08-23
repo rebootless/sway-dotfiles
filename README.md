@@ -206,5 +206,5 @@ chmod +x install.sh
 <hr>
 
 <p align="center">
-  Licensed under the <a href="LICENSE">MIT</a> license.
+  Licensed under the <a href="LICENSE">MIT</a>
 </p>
