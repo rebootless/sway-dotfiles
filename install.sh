@@ -45,19 +45,19 @@ check_distro() {
     echo "Detected: ${PRETTY_NAME}"
 }
 
-echo "==> [1/9] Checking distro"
+echo "==> [1/10] Checking distro"
 check_distro
 
-echo "==> [2/9] apt update"
+echo "==> [2/10] apt update"
 as_root apt-get update -q
 
-echo "==> [2/9] Installing kitty"
+echo "==> [2/10] Installing kitty"
 as_root apt-get install -y kitty
 
-echo "==> [2/9] Installing kate" # --no-install-recommends, otherwise it pulls systemsettings
+echo "==> [2/10] Installing kate" # --no-install-recommends, otherwise it pulls systemsettings
 as_root apt-get install -y --no-install-recommends kate
 
-echo "==> [2/9] Installing package groups"
+echo "==> [2/10] Installing package groups"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-core.sh"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-wayland-core.sh"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-theming.sh"
@@ -69,16 +69,19 @@ as_root bash "$SCRIPT_DIR/scripts/install-pkgs-system-helpers.sh"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-graphics.sh"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-apps.sh"
 
-echo "==> [3/9] Installing Nerd Fonts"
+echo "==> [3/10] Installing Nerd Fonts"
 as_root bash "$SCRIPT_DIR/scripts/install-nerd-fonts.sh"
 
-echo "==> [4/9] Installing ranger_devicons"
+echo "==> [4/10] Installing ranger_devicons"
 as_user bash "$SCRIPT_DIR/scripts/install-ranger-devicons.sh"
 
-echo "==> [5/9] Installing Zafiro icon themes"
+echo "==> [5/10] Installing Zafiro icon themes"
 as_user bash "$SCRIPT_DIR/scripts/install-zafiro-icons.sh"
 
-echo "==> [6/9] Copying dotfiles in $REAL_HOME"
+echo "==> [6/10] Installing Nordic GTK theme"
+as_user bash "$SCRIPT_DIR/scripts/install-nordic-theme.sh"
+
+echo "==> [7/10] Copying dotfiles in $REAL_HOME"
 if [[ -d "$DOTFILES_DIR" ]]; then
     TS="$(date +%Y%m%d_%H%M%S)"
     BACKUP_DIR="$REAL_HOME/.dotfiles-backup-$TS"
@@ -119,18 +122,18 @@ else
     echo "No dotfiles/ directory next to install.sh — skipping this stage."
 fi
 
-echo "==> [7/9] bash-qol (shell QoL setup, oh-my-bash theme: agnoster)"
+echo "==> [8/10] bash-qol (shell QoL setup, oh-my-bash theme: agnoster)"
 as_user bash "$SCRIPT_DIR/scripts/bash-qol/bash-qol" --omb=non-interactive --theme=agnoster
 
-echo "==> [8/9] xdg-user-dirs-update"
+echo "==> [9/10] xdg-user-dirs-update"
 as_user xdg-user-dirs-update
 
-echo "==> [9/9] Enabling system services"
+echo "==> [10/10] Enabling system services"
 as_root systemctl enable --now NetworkManager
 as_root systemctl enable --now bluetooth
 as_root systemctl enable --now firewalld
 
-echo "==> [9/9] Cleaning up"
+echo "==> [10/10] Cleaning up"
 as_root apt purge -y foot
 as_root apt autoremove -y
 
