@@ -7,23 +7,25 @@
 # No flags.
 #
 # Stages:
-#   1. Distro check (must be Debian 13 / trixie)
-#   2. apt install packages (scripts/install-pkgs-*.sh, plus kitty and kate)
-#   3. Nerd Fonts (scripts/install-nerd-fonts.sh)
-#   4. ranger_devicons (scripts/install-ranger-devicons.sh)
-#   5. Zafiro icon themes, Dark + Light (scripts/install-zafiro-icons.sh)
-#   6. lay out dotfiles/ over $HOME (backed up first, __HOME__ placeholder
-#      substituted with the real path — see the "dotfiles templating" note)
-#   7. bash-qol: shell QoL setup, non-interactive, oh-my-bash theme "agnoster"
-#      (must run AFTER dotfiles — see the "why bash-qol runs after dotfiles" note)
-#   8. xdg-user-dirs-update
-#   9. systemctl enable --now for network/system services
+#   1.  Distro check (must be Debian 13 / trixie)
+#   2.  apt install packages (scripts/install-pkgs-*.sh, plus kitty and kate)
+#   3.  Nerd Fonts (scripts/install-nerd-fonts.sh)
+#   4.  ranger_devicons (scripts/install-ranger-devicons.sh)
+#   5.  Zafiro icon themes, Dark + Light (scripts/install-zafiro-icons.sh)
+#   6.  Nordic GTK theme (scripts/install-nordic-theme.sh)
+#   7.  lay out dotfiles/ over $HOME (backed up first, __HOME__ placeholder
+#       substituted with the real path — see the "dotfiles templating" note)
+#   8.  bash-qol: shell QoL setup, non-interactive, oh-my-bash theme "agnoster"
+#       (must run AFTER dotfiles — see the "why bash-qol runs after dotfiles" note)
+#   9.  xdg-user-dirs-update
+#   10. systemctl enable --now for network/system services
 #
-# The Nordic GTK theme still ships as a static copy in
-# dotfiles/.local/share/themes/Nordic and is laid out in stage 6 (see the
-# open question about this in the PR discussion — it's the last thing in
-# this repo still bundled instead of fetched at install time). Icons are
-# NOT bundled anymore: they are downloaded fresh in stage 5.
+# Neither the Nordic GTK theme nor the icon themes are bundled in this repo:
+# both are fetched fresh at install time (stage 6 and stage 5 respectively).
+# The Nordic theme is cloned directly from its upstream GitHub repo
+# (EliverLara/Nordic) with .git stripped, so the installed directory
+# structure matches upstream exactly — dotfiles/.local/share/themes/ only
+# ships an empty placeholder directory (.gitkeep) that stage 6 fills in.
 #
 # scripts/install-pkgs-*.sh and scripts/install-{nerd-fonts,ranger-devicons,
 # zafiro-icons}.sh are copies of individual scripts from
@@ -105,19 +107,19 @@ check_distro() {
     echo "Detected: ${PRETTY_NAME}"
 }
 
-echo "==> [1/9] Checking distro"
+echo "==> [1/10] Checking distro"
 check_distro
 
-echo "==> [2/9] apt update"
+echo "==> [2/10] apt update"
 as_root apt-get update -q
 
-echo "==> [2/9] Installing kitty"
+echo "==> [2/10] Installing kitty"
 as_root apt-get install -y kitty
 
-echo "==> [2/9] Installing kate" # --no-install-recommends, otherwise it pulls systemsettings
+echo "==> [2/10] Installing kate" # --no-install-recommends, otherwise it pulls systemsettings
 as_root apt-get install -y --no-install-recommends kate
 
-echo "==> [2/9] Installing package groups"
+echo "==> [2/10] Installing package groups"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-core.sh"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-wayland-core.sh"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-theming.sh"
@@ -129,16 +131,19 @@ as_root bash "$SCRIPT_DIR/scripts/install-pkgs-system-helpers.sh"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-graphics.sh"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-apps.sh"
 
-echo "==> [3/9] Installing Nerd Fonts"
+echo "==> [3/10] Installing Nerd Fonts"
 as_root bash "$SCRIPT_DIR/scripts/install-nerd-fonts.sh"
 
-echo "==> [4/9] Installing ranger_devicons"
+echo "==> [4/10] Installing ranger_devicons"
 as_user bash "$SCRIPT_DIR/scripts/install-ranger-devicons.sh"
 
-echo "==> [5/9] Installing Zafiro icon themes"
+echo "==> [5/10] Installing Zafiro icon themes"
 as_user bash "$SCRIPT_DIR/scripts/install-zafiro-icons.sh"
 
-echo "==> [6/9] Copying dotfiles in $REAL_HOME"
+echo "==> [6/10] Installing Nordic GTK theme"
+as_user bash "$SCRIPT_DIR/scripts/install-nordic-theme.sh"
+
+echo "==> [7/10] Copying dotfiles in $REAL_HOME"
 if [[ -d "$DOTFILES_DIR" ]]; then
     TS="$(date +%Y%m%d_%H%M%S)"
     BACKUP_DIR="$REAL_HOME/.dotfiles-backup-$TS"
@@ -179,18 +184,18 @@ else
     echo "No dotfiles/ directory next to install.sh — skipping this stage."
 fi
 
-echo "==> [7/9] bash-qol (shell QoL setup, oh-my-bash theme: agnoster)"
+echo "==> [8/10] bash-qol (shell QoL setup, oh-my-bash theme: agnoster)"
 as_user bash "$SCRIPT_DIR/scripts/bash-qol/bash-qol" --omb=non-interactive --theme=agnoster
 
-echo "==> [8/9] xdg-user-dirs-update"
+echo "==> [9/10] xdg-user-dirs-update"
 as_user xdg-user-dirs-update
 
-echo "==> [9/9] Enabling system services"
+echo "==> [10/10] Enabling system services"
 as_root systemctl enable --now NetworkManager
 as_root systemctl enable --now bluetooth
 as_root systemctl enable --now firewalld
 
-echo "==> [9/9] Cleaning up"
+echo "==> [10/10] Cleaning up"
 as_root apt purge -y foot
 as_root apt autoremove -y
 
