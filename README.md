@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/Window%20Manager-Sway-88C0D0?style=for-the-badge&labelColor=2E3440">
   <img src="https://img.shields.io/badge/Shell-Bash-81A1C1?style=for-the-badge&labelColor=2E3440&logo=gnubash&logoColor=ECEFF4">
   <img src="https://img.shields.io/badge/Theme-Nord-5E81AC?style=for-the-badge&labelColor=2E3440">
-  <img src="https://img.shields.io/badge/License-GPL--3.0-BF616A?style=for-the-badge&labelColor=2E3440&logo=gnu&logoColor=ECEFF4">
+  <img src="https://img.shields.io/badge/License-MIT-BF616A?style=for-the-badge&labelColor=2E3440&logo=opensourceinitiative&logoColor=ECEFF4">
 </p>
 
 <p align="center">
