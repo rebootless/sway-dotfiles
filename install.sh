@@ -27,24 +27,14 @@
 # structure matches upstream exactly — dotfiles/.local/share/themes/ only
 # ships an empty placeholder directory (.gitkeep) that stage 6 fills in.
 #
-# scripts/install-pkgs-*.sh and scripts/install-{nerd-fonts,ranger-devicons,
-# zafiro-icons}.sh are copies of individual scripts from
-# https://github.com/rebootless/shell-toolkit — copied in as standalone
-# files (not a git-cloned subdirectory) so this repo has no nested .git and
-# no unrelated tooling from that toolkit. scripts/bash-qol/ is copied the
-# same way from https://github.com/rebootless/bash-qol. If either upstream
-# changes, re-copy the relevant file(s) by hand; there's no submodule/sync
-# mechanism here.
-#
-# kitty and kate are intentionally NOT installed via a
-# shell-toolkit script:
-#   - kitty must install before install-pkgs-wayland-core.sh (which pulls
-#     in sway), otherwise sway's Recommends pulls in foot as well.
-#   - shell-toolkit's install-kate.sh runs `apt install -y kate` with no
-#     --no-install-recommends, which pulls in the systemsettings
-#     meta-package. That's explicitly what we don't want here, so kate is
-#     installed with its own apt-get call below instead of calling that
-#     script.
+# kitty must install before install-pkgs-wayland-core.sh (which pulls in sway), 
+# otherwise sway's Recommends pulls in foot as well.
+# (Known gap: foot may still be installed despite kitty being installed first)
+# install-kate.sh runs `apt install -y kate` with no
+# --no-install-recommends, which pulls in the systemsettings
+# meta-package. That's explicitly what we don't want here, so kate is
+# installed with its own apt-get call below instead of calling that
+# script.
 #
 # Dotfiles templating (__HOME__ placeholder):
 #   Some config formats (e.g. qt5ct.conf/qt6ct.conf — plain Qt INI files,
