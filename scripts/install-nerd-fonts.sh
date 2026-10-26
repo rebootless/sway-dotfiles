@@ -28,12 +28,12 @@ apt-get update
 echo "Installing dependencies..."
 apt-get install -y curl unzip fontconfig
 
+echo ""
 echo "==> Installing Nerd Fonts"
 
 mkdir -p "$FONT_DIR"
 
 for FONT in "${FONTS[@]}"; do
-    echo ""
     echo "Installing ${FONT}..."
 
     rm -rf "${FONT_DIR}/${FONT}"
@@ -49,7 +49,6 @@ for FONT in "${FONTS[@]}"; do
         -d "${FONT_DIR}/${FONT}"
 done
 
-echo ""
 echo "Updating font cache..."
 fc-cache -fv
 

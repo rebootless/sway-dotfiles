@@ -9,6 +9,7 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
+echo ""
 echo "==> Installing audio stack (PipeWire/WirePlumber)"
 
 echo "Updating package lists..."

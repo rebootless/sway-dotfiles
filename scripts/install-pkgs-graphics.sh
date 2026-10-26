@@ -9,6 +9,7 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
+echo ""
 echo "==> Installing graphics/GL libraries"
 
 echo "Updating package lists..."

@@ -9,6 +9,7 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
+echo ""
 echo "==> Installing notification, screenshot, and speech tools"
 
 echo "Updating package lists..."

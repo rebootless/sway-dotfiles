@@ -3,12 +3,15 @@
 set -euo pipefail
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
+echo ""
 echo "==> Updating package lists"
 sudo apt-get update -y
 
+echo ""
 echo "==> Installing bash-completion, fzf, zoxide, ripgrep, bat, chafa, git"
 sudo apt-get install -y bash-completion fzf zoxide ripgrep bat chafa git
 
+echo ""
 echo "==> Installing eza"
 
 if command -v eza &>/dev/null; then
@@ -25,4 +28,5 @@ else
     echo "eza installed."
 fi
 
+echo ""
 echo "Packages installed: bash-completion, fzf, zoxide, ripgrep, bat, eza, chafa, git"

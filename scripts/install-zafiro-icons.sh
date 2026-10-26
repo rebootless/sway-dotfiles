@@ -21,7 +21,6 @@ if command -v apt-get >/dev/null 2>&1; then
     sudo apt-get install -y curl tar
 fi
 
-echo ""
 echo "Fetching latest release information..."
 
 TAG="$(

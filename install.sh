@@ -90,7 +90,7 @@ if [[ -d "$DOTFILES_DIR" ]]; then
 
     cp -a "$DOTFILES_DIR/." "$STAGE_DIR/"
 
-    # Back up whatever this run is about to overwrite.
+    # Back up whatever this run is about to overwrite
     backed_up_any=false
     while IFS= read -r -d '' f; do
         rel="${f#"$STAGE_DIR"/}"
@@ -108,8 +108,7 @@ if [[ -d "$DOTFILES_DIR" ]]; then
         rmdir "$BACKUP_DIR" 2>/dev/null || true
     fi
 
-    # Substitute the __HOME__ placeholder with the real path, text files only
-    # (grep -Iq skips binaries like icon/theme assets).
+    # Substitute the __HOME__ placeholder with the real path, text files only (grep -Iq skips binaries like icon/theme assets)
     while IFS= read -r -d '' f; do
         if grep -Iq . "$f" 2>/dev/null && grep -qF '__HOME__' "$f" 2>/dev/null; then
             sed -i "s|__HOME__|$REAL_HOME|g" "$f"
