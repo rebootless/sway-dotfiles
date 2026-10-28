@@ -45,18 +45,23 @@ check_distro() {
     echo "Detected: ${PRETTY_NAME}"
 }
 
+echo ""
 echo "==> [1/10] Checking distro"
 check_distro
 
+echo ""
 echo "==> [2/10] apt update"
 as_root apt-get update -q
 
+echo ""
 echo "==> [2/10] Installing kitty"
 as_root apt-get install -y kitty
 
+echo ""
 echo "==> [2/10] Installing kate" # --no-install-recommends, otherwise it pulls systemsettings
 as_root apt-get install -y --no-install-recommends kate
 
+echo ""
 echo "==> [2/10] Installing package groups"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-core.sh"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-wayland-core.sh"
@@ -69,18 +74,23 @@ as_root bash "$SCRIPT_DIR/scripts/install-pkgs-system-helpers.sh"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-graphics.sh"
 as_root bash "$SCRIPT_DIR/scripts/install-pkgs-apps.sh"
 
+echo ""
 echo "==> [3/10] Installing Nerd Fonts"
 as_root bash "$SCRIPT_DIR/scripts/install-nerd-fonts.sh"
 
+echo ""
 echo "==> [4/10] Installing ranger_devicons"
 as_user bash "$SCRIPT_DIR/scripts/install-ranger-devicons.sh"
 
+echo ""
 echo "==> [5/10] Installing Zafiro icon themes"
 as_user bash "$SCRIPT_DIR/scripts/install-zafiro-icons.sh"
 
+echo ""
 echo "==> [6/10] Installing Nordic GTK theme"
 as_user bash "$SCRIPT_DIR/scripts/install-nordic-theme.sh"
 
+echo ""
 echo "==> [7/10] Copying dotfiles in $REAL_HOME"
 if [[ -d "$DOTFILES_DIR" ]]; then
     TS="$(date +%Y%m%d_%H%M%S)"
@@ -121,17 +131,21 @@ else
     echo "No dotfiles/ directory next to install.sh — skipping this stage."
 fi
 
+echo ""
 echo "==> [8/10] bash-qol (shell QoL setup, oh-my-bash theme: agnoster)"
 as_user bash "$SCRIPT_DIR/scripts/bash-qol/bash-qol" --omb=non-interactive --theme=agnoster
 
+echo ""
 echo "==> [9/10] xdg-user-dirs-update"
 as_user xdg-user-dirs-update
 
+echo ""
 echo "==> [10/10] Enabling system services"
 as_root systemctl enable --now NetworkManager
 as_root systemctl enable --now bluetooth
 as_root systemctl enable --now firewalld
 
+echo ""
 echo "==> [10/10] Cleaning up"
 as_root apt purge -y foot
 as_root apt autoremove -y
